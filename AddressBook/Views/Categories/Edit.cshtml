@@ -13,6 +13,9 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="CategoryImage" />
+            <input type="hidden" asp-for="ContentType" />
+
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -20,7 +23,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="CategoryImage" class="control-label"></label>
-                <input asp-for="CategoryImage" class="form-control" />
+                <input name="NewCategoryImage" asp-for="CategoryImage" class="form-control" />
                 <span asp-validation-for="CategoryImage" class="text-danger"></span>
             </div>
             <div class="form-group">

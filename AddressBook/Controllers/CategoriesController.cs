@@ -92,7 +92,7 @@ namespace AddressBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CategoryImage,ContentType")] Category category)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CategoryImage,ContentType")] Category category, IFormFile NewCategoryImage)
         {
             if (id != category.Id)
             {
@@ -103,6 +103,10 @@ namespace AddressBook.Controllers
             {
                 try
                 {
+                    if (NewCategoryImage is not null)
+                        category.ContentType = _imageService.RecordContentType(NewCategoryImage);
+                        category.CategoryImage = await _imageService.EncodePosterAsync(NewCategoryImage);
+
                     _context.Update(category);
                     await _context.SaveChangesAsync();
                 }

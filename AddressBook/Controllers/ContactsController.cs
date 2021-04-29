@@ -52,7 +52,7 @@ namespace AddressBook.Controllers
         // GET: Contacts/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Id");
+            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name");
             return View();
         }
 
@@ -89,7 +89,7 @@ namespace AddressBook.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Id", contact.CategoryId);
+            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", contact.CategoryId);
             return View(contact);
         }
 
@@ -98,7 +98,7 @@ namespace AddressBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CategoryId,FirstName,LastName,StreetAddress,City,State,ZipCode,HomePhone,CellPhone,Fax,Email,Profile,ContentType")] Contact contact)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CategoryId,FirstName,LastName,StreetAddress,City,State,ZipCode,HomePhone,CellPhone,Fax,Email,Profile,ContentType")] Contact contact, IFormFile NewProfile)
         {
             if (id != contact.Id)
             {
@@ -109,6 +109,11 @@ namespace AddressBook.Controllers
             {
                 try
                 {
+                    if(NewProfile is not null)
+                    {
+                        contact.ContentType = _imageService.RecordContentType(NewProfile);
+                        contact.Profile = await _imageService.EncodePosterAsync(NewProfile);
+                    }
                     _context.Update(contact);
                     await _context.SaveChangesAsync();
                 }

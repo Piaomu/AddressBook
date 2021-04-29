@@ -9,7 +9,6 @@ namespace AddressBook.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
         public byte[] CategoryImage { get; set; }
         public string ContentType { get; set; }
         public ICollection<Contact> Contact { get; set; } = new HashSet<Contact>();
