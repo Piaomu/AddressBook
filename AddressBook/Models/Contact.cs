@@ -10,6 +10,7 @@ namespace AddressBook.Models
     public class Contact
     {
         public int Id { get; set; }
+        [Display(Name = "Category")]
         public int CategoryId { get; set; }
         [Display(Name = "First Name")]
         public string FirstName { get; set; }

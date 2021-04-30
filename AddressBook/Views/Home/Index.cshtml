@@ -3,6 +3,19 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">My Address Book</h1>
+    <p>I can store my adresses here.</p>
 </div>
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-6 text-center">
+            <h2>Manage My Contacts</h2>
+            <a class="btn btn-info w-100" asp-action="Create" asp-controller="Contacts">New Contact</a>
+        </div>
+        <div class="col-6">
+            <h2>Manage My Categories</h2>
+            <a class="btn btn-info w-100" asp-action="Create" asp-controller="Categories">New Category</a>
+        </div>
+    </div>
+</div>
+
